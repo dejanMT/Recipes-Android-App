@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--Ionic CDN-->
+        <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+        <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+
+        <script src="js/index.js"></script>
+        <script src="cordova.js"></script>
+        <script type="module">
+            import { modalController } from 'https://cdn.jsdelivr.net/npm/@ionic/core@latest/dist/ionic/index.esm.js';
+            window.modalController = modalController;
+          </script>
+
+        <title>My Recipes</title>
+    </head>
+    <body onload="changeColorToStar()" class="ion-page">
+        <ion-app>
+            <img src="" id="myImage">
+                <ion-tabs>
+
+                    <ion-tab tab="home">
+                        <ion-header>
+                            <ion-toolbar color="success">
+                                    <ion-title slot="start"><ion-icon name="restaurant-outline"></ion-icon> My-Recipes</ion-title>
+            
+                                    <ion-buttons slot="end">
+                                        <ion-button onclick="deleteAllRecipes()">
+                                            <ion-icon name="trash-outline"></ion-icon>
+                                            <ion-label>&nbsp;CLEAR</ion-label>
+                                        </ion-button>
+                                    </ion-buttons>
+                            </ion-toolbar>
+                        </ion-header>
+            
+                        <ion-content id="indexRecipes">
+                            <!-- Load All Recipes Here-->
+                            <img src="" id="myImage" width="200" alt="">
+                            <script>loadRecipes();</script>
+                        </ion-content>
+                    </ion-tab>
+
+                    <ion-tab tab="add">
+                        <ion-header>
+                            <ion-toolbar color="success">
+                                    <ion-title slot="start"><ion-icon name="restaurant-outline"></ion-icon> My Recipes</ion-title>
+            
+                                    <ion-buttons slot="end">
+                                        <ion-button href="index.html">
+                                            <ion-icon name="list-outline"></ion-icon>
+                                            <ion-label>&nbsp;RECIPES</ion-label>
+                                        </ion-button>
+                                    </ion-buttons>
+                            </ion-toolbar>
+                        </ion-header>
+            
+                        <ion-content>
+                            <h2 class="ion-padding-start">New Recipe</h2>
+                            <ion-list>
+                                <ion-item>
+                                    <ion-label position="stacked">Recipe Name</ion-label>
+                                    <ion-input placeholder="Chicken Tikka Masala" id="recipeName"></ion-input>
+                                </ion-item>
+            
+                                <ion-item>
+                                    <ion-label position="stacked">Ingredients</ion-label>
+                                    <ion-textarea rows="10" cols="20"  placeholder="1 Onion&#10;2 Garlic&#10;Chicken Brest&#10;Cumin Seeds " id="recipeDesc"></ion-textarea>                 
+                                </ion-item>
+            
+                                <ion-item>
+                                    <ion-label>Recipe Type</ion-label>
+                                    <ion-select id="recipeType">
+                                        <ion-select-option value="Breakfast">Breakfast</ion-select-option>
+                                        <ion-select-option value="Lunch">Lunch</ion-select-option>
+                                        <ion-select-option value="Dinner">Dinner</ion-select-option>
+                                        <ion-select-option value="Dessert">Dessert</ion-select-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-list>
+            
+                            <ion-button color="success" expand="block" onclick="validateForm()"><ion-icon name="save-outline"></ion-icon>&nbsp;Save</ion-button> 
+                        </ion-content>
+                    </ion-tab>
+
+                    <ion-tab id="about" tab="about">
+                        <ion-header>
+                            <ion-toolbar color="success">
+                                    <ion-title slot="start"><ion-icon name="restaurant-outline"></ion-icon> My Recipes</ion-title>
+                            </ion-toolbar>
+                        </ion-header>
+            
+                        <ion-content class="ion-padding">
+            
+                            <ion-img width="90" height="90" src="img/myRecipes.png"></ion-img>
+                                
+                            <ion-label>This application allows the user to add recipes and save them, the user can then deleted take a picture and see the picture of the recepe. Try it out today, for free!</ion-label>
+            
+                            <ion-item class="ion-text-center">
+                                <ion-label>Dejan Camilleri SWD-4.2C</ion-label>
+                            </ion-item>
+
+                            <ion-buttons>
+                                <ion-grid>
+                                    <ion-row class="ion-align-items-center">
+                                    <ion-col size="12" class="ion-text-center">
+                                        <ion-button onclick="window.plugins.socialsharing.shareViaWhatsApp('Get My Recipes Pro app and save all your favourite foods, today!', null /* img */, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})">
+                                            <ion-icon name="logo-whatsapp"></ion-icon>
+                                        </ion-button>
+                                    </ion-col>
+                                    <ion-col size="12" class="ion-text-center">
+                                        <ion-button onclick="window.plugins.socialsharing.shareViaSMS('Get My Recipes Pro app and save all your favourite foods, today!', null , function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)})">
+                                            <ion-icon name="chatbubbles-outline"></ion-icon>
+                                        </ion-button>
+                                    </ion-col>
+                                    </ion-row>
+                                </ion-grid>     
+                            </ion-buttons>
+
+                            
+                        </ion-content>
+                    </ion-tab>
+
+
+                    <ion-tab-bar slot="bottom">
+                        <ion-tab-button tab="home">
+                            <ion-icon name="list-outline"></ion-icon>
+                            <ion-label>List</ion-label>
+                          <!-- <ion-badge>6</ion-badge> -->
+                        </ion-tab-button>
+                    
+                        <ion-tab-button tab="add">
+                            <ion-icon name="add-circle-outline"></ion-icon>
+                            <ion-label>Add</ion-label>
+                        </ion-tab-button>
+                    
+                        <ion-tab-button tab="about">
+                          <ion-icon name="information-circle"></ion-icon>
+                          <ion-label>About</ion-label>
+                        </ion-tab-button>
+                      </ion-tab-bar>
+                </ion-tabs>
+            </ion-content>
+        </ion-app>
+    </body>
+</html>
